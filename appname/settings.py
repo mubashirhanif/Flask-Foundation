@@ -8,7 +8,8 @@ class Config(object):
 
 class ProdConfig(Config):
     ENV = 'prod'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://ipdb:ipdb@database/ipdb_prod?charset=utf8mb4'
+    WTF_CSRF_ENABLED = False
 
     CACHE_TYPE = 'simple'
 
@@ -18,7 +19,8 @@ class DevConfig(Config):
     DEBUG = True
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://ipdb:ipdb@database/ipdb?charset=utf8mb4'
+    WTF_CSRF_ENABLED = False
 
     CACHE_TYPE = 'null'
     ASSETS_DEBUG = True

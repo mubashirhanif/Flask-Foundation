@@ -5,7 +5,7 @@ import os
 from flask_script import Manager, Server
 from flask_script.commands import ShowUrls, Clean
 from appname import create_app
-from appname.models import db, User
+from appname.models import db, Interface, Node
 
 # default to dev config because no one should use this in
 # production anyway
@@ -13,7 +13,7 @@ env = os.environ.get('APPNAME_ENV', 'dev')
 app = create_app('appname.settings.%sConfig' % env.capitalize())
 
 manager = Manager(app)
-manager.add_command("server", Server())
+manager.add_command("server", Server(host="0.0.0.0", port=5000))
 manager.add_command("show-urls", ShowUrls())
 manager.add_command("clean", Clean())
 
@@ -24,7 +24,7 @@ def make_shell_context():
         in the context of the app
     """
 
-    return dict(app=app, db=db, User=User)
+    return dict(app=app, db=db, Interface=Interface, Node=Node)
 
 
 @manager.command

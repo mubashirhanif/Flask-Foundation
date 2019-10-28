@@ -36,13 +36,10 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('.home') }}">Home</a></li>
 
-                    {% if not current_user.is_authenticated %}
-                        <li><a href="{{ url_for('.login') }}">Login</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('.logout') }}">Logout</a></li>
-                    {% endif %}
+                    <li><a href="{{ url_for('.register_ip') }}">Register IP</a></li>
+                    <li><a href="{{ url_for('.ip_addresses') }}">IP Address List</a></li>
 
-                    <li><a href="{{ url_for('.restricted') }}">Login Restricted Page</a></li>
+                    <!-- <li><a href="{{ url_for('.restricted') }}">Login Restricted Page</a></li> -->
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
