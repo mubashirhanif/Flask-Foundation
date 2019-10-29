@@ -1,3 +1,10 @@
 .container {
     margin-top: 60px;
 }
+
+.row :nth-child(even){
+    background-color: #dcdcdc;
+}
+.row :nth-child(odd){
+    background-color: #aaaaaa;
+}

@@ -3,31 +3,39 @@
 {% block title %}Ip Address list{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Ip Address list</h1>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{ message }}
+<h1 class="text-center">Ip Address list</h1>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    {% for id, host in hosts %}
+    <div class="panel">
+        <div class="panel-heading" role="tab" id="heading{{id}}">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                    href="#collapse{{id}}" aria-expanded="false" aria-controls="collapse{{id}}">
+                    {{ host.username }}@{{ host.hostname }}
+                </a>
+            </h4>
         </div>
-        {% for id, host in hosts %}
-            <div class="panel">
-            <div class="panel-heading" role="tab" id="heading{{id}}">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{id}}" aria-expanded="false" aria-controls="collapse{{id}}">
-                        {{ host.username }}@{{ host.hostname }}
-                    </a>
-                    </h4>
+        <div id="collapse{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{id}}">
+            <!-- <div class="container"> -->
+            {% for iface in host.interfaces %}
+            <div class="row">
+                <div class="col-md-3 strong">
+                    {{iface.name}}
                 </div>
-                <div id="collapse{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{id}}">
-                    {% for iface in host.interfaces %}
-                        <div class="panel-body">
-                            {{iface.name}}: {{iface.ip}}
-                        </div>
-                    {% endfor %}
+                <div class="col-md-3 ">
+                    {{iface.ip}}
+                </div>
+                <div class="col-md-6 mark text-primary">
+                    ssh -L &lt;<span class="text-italic"><em>your_port</em></span>&gt;:localhost:&lt;<span
+                        class="text-italic"><em>destination_port</em></span>&gt; {{iface.ip}}
                 </div>
             </div>
-        {% endfor %}
-        
-        
-      </div>
+            {% endfor %}
+            <!-- </div> -->
+        </div>
+    </div>
+    {% endfor %}
+
+
+</div>
 {% endblock %}
